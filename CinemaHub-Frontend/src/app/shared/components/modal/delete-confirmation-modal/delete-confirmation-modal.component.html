@@ -1,0 +1,8 @@
+<div class="backdrop" (click)="onClose()"></div>
+<div class="modal-wrapper">
+  <span class="close-btn" (click)="onClose()">x</span>
+  <h4>Confirm Deletion</h4>
+  <p>Are you sure you want to delete?</p>
+  <button class="btn btn-danger mx-1" (click)="confirm()">Delete</button>
+  <button class="btn btn-secondary" (click)="onClose()">Cancel</button>
+</div>

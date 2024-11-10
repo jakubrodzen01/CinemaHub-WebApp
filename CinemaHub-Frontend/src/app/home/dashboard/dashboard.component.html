@@ -1,0 +1,89 @@
+<div class="container mt-5">
+  <div class="card mb-4">
+    <div class="card-body">
+      <h2 class="card-title">{{ welcomeMessage }}</h2>
+      <p class="card-text">Today is {{ currentDate | date: 'EEEE, dd.MM.yyyy' }}</p>
+    </div>
+  </div>
+
+  <div class="row mb-4 d-flex align-items-stretch">
+    <div *ngIf="weather" class="col-md-6">
+      <div class="card h-100">
+        <div class="card-body">
+          <h3 class="card-title">Current Weather</h3>
+          <div class="row align-items-center">
+            <div class="col-md-6">
+              <p class="card-text"><strong>Location:</strong> {{ weather.name }}</p>
+              <p class="card-text"><strong>Temperature:</strong> {{ weather.main.temp }} °C</p>
+              <p class="card-text"><strong>Weather:</strong> {{ weather.weather[0].description }}</p>
+            </div>
+            <div class="col-md-6 text-center">
+              <img [src]="'https://openweathermap.org/img/wn/' + weather.weather[0].icon + '.png'" alt="Weather Icon" class="weather-icon">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="!weather" class="col-md-6">
+      <div class="card">
+        <div class="card-body">
+          <h3 class="card-title">Current Weather</h3>
+          <p class="card-text">Loading weather data...</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="card h-100">
+        <h3 class="card-title time-title">Time</h3>
+        <div class="card-body d-flex flex-column justify-content-center align-items-center">
+          <div class="clock">
+            <div class="clock-face">
+              <div class="clock-hour clock-hour-12">12</div>
+              <div class="clock-hour clock-hour-3">3</div>
+              <div class="clock-hour clock-hour-6">6</div>
+              <div class="clock-hour clock-hour-9">9</div>
+              
+              <div class="clock-hand hour" [style.transform]="hourRotation"></div>
+              <div class="clock-hand minute" [style.transform]="minuteRotation"></div>
+              <div class="clock-hand second" [style.transform]="secondRotation"></div>
+            </div>
+            <div class="center-dot"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+
+  <div *ngIf="todayShifts.length > 0" class="card mb-4">
+    <div class="card-body">
+      <h3 class="card-title">Today's Shifts</h3>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Employee Name</th>
+            <th>Place</th>
+            <th>Start Time</th>
+            <th>End Time</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let shift of todayShifts">
+            <td>{{ shift.user.firstName }} {{ shift.user.lastName }}</td>
+            <td>{{ shift.place }}</td>
+            <td>{{ shift.startTime }}</td>
+            <td>{{ shift.endTime }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div *ngIf="todayShifts.length === 0" class="card mb-4">
+    <div class="card-body">
+      <h3 class="card-title">Today's Shifts</h3>
+      <p class="card-text">No shifts available for today.</p>
+    </div>
+  </div>
+</div>

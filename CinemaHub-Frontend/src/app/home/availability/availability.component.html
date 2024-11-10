@@ -1,0 +1,50 @@
+<div class="container mt-5">
+  <div *ngIf="isEmployee">
+    <div *ngIf="!availabilityAdded; else addedMessage">
+      <form [formGroup]="availabilityForm" (ngSubmit)="addAvailability()">
+        <div class="form-group" *ngFor="let day of daysOfWeek">
+          <label [for]="day">{{ day.charAt(0).toUpperCase() + day.slice(1) }}</label>
+          <input type="text" class="form-control" [id]="day" formControlName="{{day}}" [disabled]="isFormDisabled()">
+        </div>
+        <button type="submit" class="btn btn-success mt-3" [disabled]="isFormDisabled()">Add Availability</button>
+      </form>
+    </div>
+    <ng-template #addedMessage>
+      <div class="alert alert-success" role="alert">
+        Availability has been added.
+      </div>
+    </ng-template>
+  </div>
+
+  <div *ngIf="isManager">
+    <h3>Employees' Availabilities</h3>
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+        <tr>
+          <th>Employee</th>
+          <th>Friday</th>
+          <th>Saturday</th>
+          <th>Sunday</th>
+          <th>Monday</th>
+          <th>Tuesday</th>
+          <th>Wednesday</th>
+          <th>Thursday</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let availability of availabilities">
+          <td>{{ availability.user.firstName }} {{ availability.user.lastName }}</td>
+          <td>{{ availability.friday }}</td>
+          <td>{{ availability.saturday }}</td>
+          <td>{{ availability.sunday }}</td>
+          <td>{{ availability.monday }}</td>
+          <td>{{ availability.tuesday }}</td>
+          <td>{{ availability.wednesday }}</td>
+          <td>{{ availability.thursday }}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,54 @@
+<div class="container mt-5">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>Schedule {{daysOfWeek[0]}} - {{daysOfWeek[6]}}</h2>
+    <button class="btn btn-outline-success" (click)="downloadSchedule()">
+      <i class="fas fa-download"></i> Download
+    </button>
+  </div>
+  <div id="schedule-container">
+    <div *ngFor="let day of daysOfWeek">
+      <h4>{{ day | date: 'fullDate' }}</h4>
+      <div *ngIf="shifts[day] && shifts[day].length > 0; else noShifts">
+        <table class="table table-striped">
+          <thead>
+          <tr>
+            <th>Employee Name</th>
+            <th>Place</th>
+            <th>Start Time</th>
+            <th>End Time</th>
+          </tr>
+          </thead>
+          <tbody>
+          <ng-container *ngFor="let shift of shifts[day]">
+            <tr *ngIf="shift.place === 'SERVICE'">
+              <td class="namePlace">{{ shift.user.firstName }} {{ shift.user.lastName }}</td>
+              <td class="placePlace">{{ shift.place }}</td>
+              <td class="timePlace">{{ shift.startTime }}</td>
+              <td class="timePlace">{{ shift.endTime }}</td>
+            </tr>
+            <tr *ngIf="shift.place === 'BAR'">
+              <td class="namePlace">{{ shift.user.firstName }} {{ shift.user.lastName }}</td>
+              <td class="placePlace">{{ shift.place }}</td>
+              <td class="timePlace">{{ shift.startTime }}</td>
+              <td class="timePlace">{{ shift.endTime }}</td>
+            </tr>
+            <tr *ngIf="shift.place === 'CAFE'">
+              <td class="namePlace">{{ shift.user.firstName }} {{ shift.user.lastName }}</td>
+              <td class="placePlace">{{ shift.place }}</td>
+              <td class="timePlace">{{ shift.startTime }}</td>
+              <td class="timePlace">{{ shift.endTime }}</td>
+            </tr>
+          </ng-container>
+          </tbody>
+        </table>
+      </div>
+      <ng-template #noShifts>
+        <p>No shifts available for this day.</p>
+      </ng-template>
+    </div>  
+  </div>
+  
+  <div *ngIf="role === 'MANAGER'" class="text-center mt-4">
+    <button class="btn btn-success" (click)="navigateToCreateSchedule()">Create New Schedule</button>
+  </div>
+</div>

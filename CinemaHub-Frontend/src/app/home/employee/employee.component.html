@@ -1,0 +1,87 @@
+<div class="container mt-5">
+  <h2>Employee List</h2>
+  <div *ngIf="employees.length === 0">
+    <p>No employees available.</p>
+  </div>
+  <div *ngFor="let employee of employees; let i = index">
+    <div class="card mb-3">
+      <div class="card-body">
+        <h5 class="card-title">{{ i + 1 }}. {{ employee.firstName }} {{ employee.lastName }}</h5>
+        <p class="card-text">Role: {{ employee.role }}</p>
+        <button class="btn btn-outline-primary me-2" [routerLink]="['/home/employee', employee.idUser]">Info</button>
+        <button *ngIf="role === 'MANAGER'" class="btn btn-outline-secondary me-2" (click)="openEditModal(employee)" >Edit</button>
+        <button *ngIf="role === 'MANAGER'" class="btn btn-outline-danger" (click)="openConfirmModal(employee.idUser)">Delete</button>
+      </div>
+    </div>
+  </div>
+  <button *ngIf="role === 'MANAGER'" class="btn btn-success mt-3" (click)="openAddModal()">Add Employee</button>
+  
+  <app-modal *ngIf="showAddModal" title="Add New Employee" (close)="closeAddModal()">
+    <form #form="ngForm" (ngSubmit)="addEmployee()">
+      <div class="form-group">
+        <label for="firstName">First Name</label>
+        <input type="text" id="firstName" [(ngModel)]="newEmployee.firstName" name="firstName" class="form-control" required>
+      </div>
+      <div class="form-group">
+        <label for="lastName">Last Name</label>
+        <input type="text" id="lastName" [(ngModel)]="newEmployee.lastName" name="lastName" class="form-control" required>
+      </div>
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" id="username" [(ngModel)]="newEmployee.username" name="username" class="form-control" required>
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" [(ngModel)]="newEmployee.password" name="password" class="form-control" required>
+      </div>
+      <div class="form-group">
+        <label>Role</label>
+        <div>
+          <label class="form-check-label me-2">
+            <input type="radio" name="role" [(ngModel)]="newEmployee.role" value="EMPLOYEE" class="form-check-input" required> Employee
+          </label>
+          <label class="form-check-label">
+            <input type="radio" name="role" [(ngModel)]="newEmployee.role" value="MANAGER" class="form-check-input" required> Manager
+          </label>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-success mt-3" [disabled]="form.invalid">Add Employee</button>
+    </form>
+  </app-modal>
+  
+
+  <app-modal *ngIf="showEditModal" title="Edit Employee" (close)="closeEditModal()">
+    <form #form="ngForm" (ngSubmit)="editEmployee()">
+      <div class="form-group">
+        <label for="firstName">First Name</label>
+        <input type="text" id="firstName" [(ngModel)]="newEmployee.firstName" name="firstName" class="form-control" required>
+      </div>
+      <div class="form-group">
+        <label for="lastName">Last Name</label>
+        <input type="text" id="lastName" [(ngModel)]="newEmployee.lastName" name="lastName" class="form-control" required>
+      </div>
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" id="username" [(ngModel)]="newEmployee.username" name="username" class="form-control" required>
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" [(ngModel)]="newEmployee.password" name="password" class="form-control" required>
+      </div>
+      <div class="form-group">
+        <label>Role</label>
+        <div>
+          <label class="form-check-label me-2">
+            <input type="radio" name="role" [(ngModel)]="newEmployee.role" value="EMPLOYEE" class="form-check-input" required> Employee
+          </label>
+          <label class="form-check-label">
+            <input type="radio" name="role" [(ngModel)]="newEmployee.role" value="MANAGER" class="form-check-input" required> Manager
+          </label>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-success mt-3" [disabled]="form.invalid">Save Employee</button>
+    </form>
+  </app-modal>
+
+  <app-delete-confirmation-modal *ngIf="showConfirmModal" (confirmed)="deleteEmployee()" (close)="closeConfirmModal()"></app-delete-confirmation-modal>
+</div>

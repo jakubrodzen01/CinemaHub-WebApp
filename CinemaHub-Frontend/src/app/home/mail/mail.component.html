@@ -1,0 +1,81 @@
+<div class="container mt-5" *ngIf="dataLoaded">
+  <div class="card">
+    <div class="card-body">
+      <h2 class="card-title">Mail Management</h2>
+
+      <ul class="nav nav-tabs" id="mailTabs" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button class="nav-link active" id="received-tab" data-bs-toggle="tab" data-bs-target="#received" type="button" role="tab">
+            Received
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="sent-tab" data-bs-toggle="tab" data-bs-target="#sent" type="button" role="tab">
+            Sent
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="create-tab" data-bs-toggle="tab" data-bs-target="#create" type="button" role="tab">
+            Create Mail
+          </button>
+        </li>
+      </ul>
+
+      <div class="tab-content mt-3" id="mailTabsContent">
+        <div class="tab-pane fade show active" id="received" role="tabpanel">
+          <h3>Received Mails</h3>
+          <div *ngIf="receivedMails.length > 0; else noMails">
+            <ul class="list-group">
+              <li class="list-group-item" *ngFor="let mail of receivedMails">
+                <strong>{{mail.title}}</strong> - {{mail.sendDate | date:'yyyy-MM-dd'}}<br>
+                From: {{mail.sender.firstName }} {{mail.sender.lastName}}<br>
+                <p>{{mail.text}}</p>
+              </li>
+            </ul>
+          </div>
+          <ng-template #noMails>
+            <p>You have no received mails.</p>
+          </ng-template>
+        </div>
+
+        <div class="tab-pane fade" id="sent" role="tabpanel">
+          <h3>Sent Mails</h3>
+          <div *ngIf="sentMails.length > 0; else noSentMails">
+            <ul class="list-group">
+              <li class="list-group-item" *ngFor="let mail of sentMails">
+                <strong>{{mail.title}}</strong> - {{mail.sendDate | date:'short'}}<br>
+                To: {{mail.recipient.firstName }} {{ mail.recipient.lastName}}<br>
+                <p>{{mail.text}}</p>
+              </li>
+            </ul>
+          </div>
+          <ng-template #noSentMails>
+            <p>You haven't sent any mails.</p>
+          </ng-template>
+        </div>
+
+        <div class="tab-pane fade" id="create" role="tabpanel">
+          <h3>Create Mail</h3>
+          <form (ngSubmit)="sendMail()" #mailForm="ngForm">
+            <div class="mb-3">
+              <label for="recipient" class="form-label">Recipient:</label>
+              <select id="recipient" class="form-control" [(ngModel)]="newMail.idRecipient" name="recipientId" required>
+                <option value="" disabled>Select recipient</option>
+                <option *ngFor="let employee of employees" [value]="employee.idUser">{{ employee.firstName }} {{ employee.lastName }}</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="title" class="form-label">Title:</label>
+              <input type="text" id="title" class="form-control" [(ngModel)]="newMail.title" name="title" required>
+            </div>
+            <div class="mb-3">
+              <label for="text" class="form-label">Message:</label>
+              <textarea id="text" class="form-control" [(ngModel)]="newMail.text" name="text" rows="5" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-success" [disabled]="mailForm.invalid">Send Mail</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

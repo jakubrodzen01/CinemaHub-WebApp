@@ -1,0 +1,59 @@
+<div class="container mt-5">
+    <h2 class="mb-4">Create Schedule</h2>
+    <div *ngFor="let day of daysOfWeek">
+      <h4>{{ day | date: 'fullDate' }}</h4>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Employee</th>
+            <th>Place</th>
+            <th>Start Time</th>
+            <th>End Time</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container *ngFor="let shift of shifts[day]; let i = index">
+            <tr>
+              <td>
+                <select [(ngModel)]="shift.username" class="form-control">
+                    <option *ngFor="let availability of getAvailabilityForDay(day)"
+                        [value]="availability.user.username">
+                      {{ availability.user.firstName }} {{ availability.user.lastName }} - {{ availability.hours }}
+                    </option>
+                  </select>
+              </td>
+              <td>
+                <select [(ngModel)]="shift.place" class="form-control">
+                  <option *ngFor="let place of places" [value]="place">{{ place }}</option>
+                </select>
+              </td>
+              <td>
+                <select [(ngModel)]="shift.startTime" class="form-control">
+                  <option *ngFor="let time of times" [value]="time">{{ time }}</option>
+                </select>
+              </td>
+              <td>
+                <select [(ngModel)]="shift.endTime" class="form-control">
+                  <option *ngFor="let time of times" [value]="time">{{ time }}</option>
+                </select>
+              </td>
+              <td>
+                <button class="btn btn-danger" (click)="removeShift(day, shift)">Remove</button>
+              </td>
+            </tr>
+          </ng-container>
+          <tr>
+            <td colspan="5" class="text-center">
+              <button class="btn btn-success" (click)="addShift(day)">Add Shift</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  
+    <div class="text-center mt-4">
+      <button class="btn btn-success" (click)="saveSchedule()">Save Schedule</button>
+    </div>
+  </div>
+  
