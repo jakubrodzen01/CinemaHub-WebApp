@@ -1,0 +1,21 @@
+img {
+  max-width: 400px;
+  margin-top: 8em;
+}
+
+p {
+  font-size: xx-large;
+}
+
+.bg-image {
+  background-image: url('../../assets/images/page_not_found_background.jpg');
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding-top: 20px;
+}
+

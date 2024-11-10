@@ -1,0 +1,48 @@
+<div class="container mt-5">
+  <h2>Adverts</h2>
+  <div *ngIf="adverts.length === 0">
+    <p>No adverts available.</p>
+  </div>
+  <div *ngFor="let advert of adverts">
+    <div class="card mb-3">
+      <div class="card-body">
+        <h5 class="card-title">{{ advert.title }}</h5>
+        <p class="card-text">{{ advert.text }}</p>
+        <p class="card-text"><small class="text-muted">Added: {{ advert.sendDate }} by {{ advert.user.firstName }} {{advert.user.lastName}}</small></p>
+        <button *ngIf="role === 'MANAGER'" class="btn btn-outline-secondary me-2" (click)="openEditModal(advert)">Edit</button>
+        <button *ngIf="role === 'MANAGER'" class="btn btn-outline-danger" (click)="openConfirmModal(advert.idAdvert)">Delete</button>
+      </div>
+    </div>
+  </div>
+  <button *ngIf="role === 'MANAGER'" class="btn btn-success" (click)="openAddModal()">Add Advert</button>
+
+  <app-modal *ngIf="showAddModal" title="Add New Advert" (close)="closeAddModal()">
+    <form #form="ngForm" (ngSubmit)="addAdvert()">
+      <div class="form-group">
+        <label for="title">Title</label>
+        <input type="text" id="title" [(ngModel)]="newAdvert.title" name="title" class="form-control" required>
+      </div>
+      <div class="form-group">
+        <label for="text">Text</label>
+        <textarea id="text" [(ngModel)]="newAdvert.text" name="text" class="form-control" required></textarea>
+      </div>
+      <button type="submit" class="btn btn-success mt-3" [disabled]="form.invalid">Add Advert</button>
+    </form>
+  </app-modal>
+
+  <app-modal *ngIf="showEditModal" title="Edit Advert" (close)="closeEditModal()">
+    <form #form="ngForm" (ngSubmit)="editAdvert()">
+      <div class="form-group">
+        <label for="title">Title</label>
+        <input type="text" id="title" [(ngModel)]="newAdvert.title" name="title" class="form-control" required>
+      </div>
+      <div class="form-group">
+        <label for="text">Text</label>
+        <textarea id="text" [(ngModel)]="newAdvert.text" name="text" class="form-control" required></textarea>
+      </div>
+      <button type="submit" class="btn btn-success mt-3" [disabled]="form.invalid">Edit Advert</button>
+    </form>
+  </app-modal>
+
+  <app-delete-confirmation-modal *ngIf="showConfirmModal" (confirmed)="deleteAdvert()" (close)="closeConfirmModal()"></app-delete-confirmation-modal>
+</div>

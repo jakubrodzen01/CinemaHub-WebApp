@@ -1,0 +1,16 @@
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+h2 {
+  margin-bottom: 20px;
+}
+
+.table {
+  margin-top: 20px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
