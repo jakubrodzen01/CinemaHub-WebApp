@@ -19,6 +19,8 @@ export class MailComponent {
     text: ''
   };
   employees: any[] = [];
+  selectedMail: any = null;
+  showMailDetailsModal: boolean = false;
 
   constructor(private employeeService: EmployeeService, private mailService: MailService, private router: Router) {}
 
@@ -46,7 +48,7 @@ export class MailComponent {
         this.receivedMails = mails.sort((a, b) => new Date(b.sendDate).getTime() - new Date(a.sendDate).getTime());
       },
       (error: any) => {
-        console.log('Error loading recived mails: ', error);
+        console.log('Error loading received mails: ', error);
       }
     );
   }
@@ -73,11 +75,22 @@ export class MailComponent {
           idRecipient: '',
           title: '',
           text: ''
-        }
+        };
+        this.loadSentMails();
       },
       (error: any) => {
         console.error('Error sending mail:', error);
       }
     );
+  }
+
+  openMailDetailsModal(mail: any): void {
+    this.selectedMail = mail;
+    this.showMailDetailsModal = true;
+  }
+
+  closeMailDetailsModal(): void {
+    this.selectedMail = null;
+    this.showMailDetailsModal = false;
   }
 }

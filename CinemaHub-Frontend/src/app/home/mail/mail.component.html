@@ -26,10 +26,9 @@
           <h3>Received Mails</h3>
           <div *ngIf="receivedMails.length > 0; else noMails">
             <ul class="list-group">
-              <li class="list-group-item" *ngFor="let mail of receivedMails">
+              <li class="list-group-item" *ngFor="let mail of receivedMails" (click)="openMailDetailsModal(mail)">
                 <strong>{{mail.title}}</strong> - {{mail.sendDate | date:'yyyy-MM-dd'}}<br>
-                From: {{mail.sender.firstName }} {{mail.sender.lastName}}<br>
-                <p>{{mail.text}}</p>
+                From: {{mail.sender.firstName }} {{mail.sender.lastName}}
               </li>
             </ul>
           </div>
@@ -42,10 +41,9 @@
           <h3>Sent Mails</h3>
           <div *ngIf="sentMails.length > 0; else noSentMails">
             <ul class="list-group">
-              <li class="list-group-item" *ngFor="let mail of sentMails">
-                <strong>{{mail.title}}</strong> - {{mail.sendDate | date:'short'}}<br>
-                To: {{mail.recipient.firstName }} {{ mail.recipient.lastName}}<br>
-                <p>{{mail.text}}</p>
+              <li class="list-group-item" *ngFor="let mail of sentMails" (click)="openMailDetailsModal(mail)">
+                <strong>{{mail.title}}</strong> - {{mail.sendDate | date:'yyyy-MM-dd'}}<br>
+                To: {{mail.recipient.firstName }} {{ mail.recipient.lastName}}
               </li>
             </ul>
           </div>
@@ -78,4 +76,59 @@
       </div>
     </div>
   </div>
+
+  <app-modal *ngIf="showMailDetailsModal" title="Mail Details" (close)="closeMailDetailsModal()">
+    <form>
+      <div class="form-group">
+        <label for="mailTitle">Title</label>
+        <input
+          type="text"
+          id="mailTitle"
+          class="form-control"
+          [value]="selectedMail?.title"
+          readonly
+        />
+      </div>
+      <div class="form-group">
+        <label for="mailFrom">From</label>
+        <input
+          type="text"
+          id="mailFrom"
+          class="form-control"
+          [value]="selectedMail?.sender?.firstName + ' ' + selectedMail?.sender?.lastName"
+          readonly
+        />
+      </div>
+      <div class="form-group">
+        <label for="mailTo">To</label>
+        <input
+          type="text"
+          id="mailTo"
+          class="form-control"
+          [value]="selectedMail?.recipient?.firstName + ' ' + selectedMail?.recipient?.lastName"
+          readonly
+        />
+      </div>
+      <div class="form-group">
+        <label for="mailDate">Date</label>
+        <input
+          type="text"
+          id="mailDate"
+          class="form-control"
+          [value]="selectedMail?.sendDate | date: 'short'"
+          readonly
+        />
+      </div>
+      <div class="form-group">
+        <label for="mailText">Message</label>
+        <textarea
+          id="mailText"
+          class="form-control"
+          rows="5"
+          [value]="selectedMail?.text"
+          readonly
+        ></textarea>
+      </div>
+    </form>
+  </app-modal>
 </div>
