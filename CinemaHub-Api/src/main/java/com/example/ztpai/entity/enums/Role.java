@@ -1,4 +1,4 @@
-package com.example.ztpai.entitie.enums;
+package com.example.ztpai.entity.enums;
 
 public enum Role {
     EMPLOYEE,

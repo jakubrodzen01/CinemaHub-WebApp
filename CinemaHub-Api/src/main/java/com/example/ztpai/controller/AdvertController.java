@@ -1,8 +1,8 @@
 package com.example.ztpai.controller;
 
 import com.example.ztpai.config.JwtService;
-import com.example.ztpai.entitie.Advert;
-import com.example.ztpai.entitie.User;
+import com.example.ztpai.entity.Advert;
+import com.example.ztpai.entity.User;
 import com.example.ztpai.service.AdvertService;
 import com.example.ztpai.service.UserService;
 import jakarta.servlet.http.HttpServletResponse;

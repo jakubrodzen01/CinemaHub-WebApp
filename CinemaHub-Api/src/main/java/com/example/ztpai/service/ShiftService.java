@@ -1,6 +1,6 @@
 package com.example.ztpai.service;
 
-import com.example.ztpai.entitie.Shift;
+import com.example.ztpai.entity.Shift;
 import com.example.ztpai.repository.ShiftRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

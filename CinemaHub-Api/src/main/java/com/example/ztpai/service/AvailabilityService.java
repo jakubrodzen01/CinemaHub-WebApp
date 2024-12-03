@@ -1,6 +1,6 @@
 package com.example.ztpai.service;
 
-import com.example.ztpai.entitie.Availability;
+import com.example.ztpai.entity.Availability;
 import com.example.ztpai.repository.AvailabilityRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

@@ -1,6 +1,6 @@
 package com.example.ztpai.service;
 
-import com.example.ztpai.entitie.Advert;
+import com.example.ztpai.entity.Advert;
 import com.example.ztpai.repository.AdvertRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

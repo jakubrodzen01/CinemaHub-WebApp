@@ -1,6 +1,6 @@
-package com.example.ztpai.entitie;
+package com.example.ztpai.entity;
 
-import com.example.ztpai.entitie.enums.Role;
+import com.example.ztpai.entity.enums.Role;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;

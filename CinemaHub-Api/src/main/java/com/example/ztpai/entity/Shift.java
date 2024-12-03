@@ -1,6 +1,6 @@
-package com.example.ztpai.entitie;
+package com.example.ztpai.entity;
 
-import com.example.ztpai.entitie.enums.Place;
+import com.example.ztpai.entity.enums.Place;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;

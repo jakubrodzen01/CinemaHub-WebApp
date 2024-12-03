@@ -1,8 +1,8 @@
 package com.example.ztpai.controller;
 
 import com.example.ztpai.config.JwtService;
-import com.example.ztpai.entitie.Mail;
-import com.example.ztpai.entitie.User;
+import com.example.ztpai.entity.Mail;
+import com.example.ztpai.entity.User;
 import com.example.ztpai.model.MailDto;
 import com.example.ztpai.repository.MailRepository;
 import com.example.ztpai.service.MailService;

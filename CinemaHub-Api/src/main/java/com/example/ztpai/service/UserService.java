@@ -1,6 +1,6 @@
 package com.example.ztpai.service;
 
-import com.example.ztpai.entitie.*;
+import com.example.ztpai.entity.*;
 import com.example.ztpai.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

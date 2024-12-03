@@ -1,6 +1,6 @@
 package com.example.ztpai.config;
 
-import com.example.ztpai.entitie.User;
+import com.example.ztpai.entity.User;
 import com.example.ztpai.repository.UserRepository;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
